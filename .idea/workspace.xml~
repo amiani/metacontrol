@@ -2,6 +2,8 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" assignedExecutableTargets="true" buildAllGenerated="true">
     <generated>
+      <config projectName="FSCSMock" targetName="FSCSMock" />
+      <config projectName="MockControlSystem" targetName="MockControlSystem" />
       <config projectName="MetaControlSim" targetName="MetaControlSim" />
     </generated>
   </component>
@@ -12,12 +14,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d3e0fc02-9d81-44d6-9814-6c81215da9f2" name="Default" comment="First commit">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/.name" afterPath="$PROJECT_DIR$/.idea/.name" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
-    <ignored path="MetaControlSim.iws" />
+    <ignored path="FSCSMock.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -32,7 +33,7 @@
   </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FavoritesManager">
-    <favorites_list name="MetaControlSim" />
+    <favorites_list name="FSCSMock" />
   </component>
   <component name="FileEditorManager">
     <leaf>
@@ -109,44 +110,44 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/main.cpp" />
-        <option value="$PROJECT_DIR$/FlowMeter.cpp" />
-        <option value="$PROJECT_DIR$/FlowMeter.h" />
-        <option value="$PROJECT_DIR$/Pump.h" />
-        <option value="$PROJECT_DIR$/Pump.cpp" />
-        <option value="$PROJECT_DIR$/Routine.cpp" />
-        <option value="$PROJECT_DIR$/BatchRoutine.h" />
-        <option value="$PROJECT_DIR$/Routine.h" />
-        <option value="$PROJECT_DIR$/Sensor.h" />
-        <option value="$PROJECT_DIR$/LevelSensor.cpp" />
-        <option value="$PROJECT_DIR$/LevelSensor.h" />
-        <option value="$PROJECT_DIR$/Controller.h" />
-        <option value="$PROJECT_DIR$/Controller.cpp" />
-        <option value="$PROJECT_DIR$/FSCS/DefaultProfile.h" />
-        <option value="$PROJECT_DIR$/FlowMeter.cpp" />
-        <option value="$PROJECT_DIR$/TempSensor.h" />
-        <option value="$PROJECT_DIR$/FSCS/PHSensor.h" />
-        <option value="$PROJECT_DIR$/FSCS/WetTraySensor.h" />
-        <option value="$PROJECT_DIR$/Pump.cpp" />
-        <option value="$PROJECT_DIR$/FSCS/TempSensor.h" />
-        <option value="$PROJECT_DIR$/Sensor.h" />
-        <option value="$PROJECT_DIR$/FSCS/BatchRoutine.cpp" />
-        <option value="$PROJECT_DIR$/FSCS/BatchRoutine.h" />
-        <option value="$PROJECT_DIR$/FSCS/FreshBatchRoutine.h" />
-        <option value="$PROJECT_DIR$/Profile.h" />
-        <option value="$PROJECT_DIR$/FSCS/Profiles/DefaultProfile.h" />
-        <option value="$PROJECT_DIR$/FSCS/Sensors/PHSensor.h" />
-        <option value="$PROJECT_DIR$/FSCS/Sensors/TempSensor.h" />
-        <option value="$PROJECT_DIR$/FSCS/Sensors/WetTraySensor.h" />
-        <option value="$PROJECT_DIR$/Routine.h" />
-        <option value="$PROJECT_DIR$/FSCS/Routines/FreshBatchRoutine.cpp" />
-        <option value="$PROJECT_DIR$/Controller.h" />
-        <option value="$PROJECT_DIR$/FSCS/Routines/FreshBatchRoutine.h" />
-        <option value="$PROJECT_DIR$/Pump.h" />
-        <option value="$PROJECT_DIR$/FlowMeter.h" />
-        <option value="$PROJECT_DIR$/Routine.cpp" />
-        <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/Controller.cpp" />
+        <option value="$PROJECT_DIR$/../FSCSMock/main.cpp" />
+        <option value="$PROJECT_DIR$/../FSCSMock/FlowMeter.cpp" />
+        <option value="$PROJECT_DIR$/../FSCSMock/FlowMeter.h" />
+        <option value="$PROJECT_DIR$/../FSCSMock/Pump.h" />
+        <option value="$PROJECT_DIR$/../FSCSMock/Pump.cpp" />
+        <option value="$PROJECT_DIR$/../FSCSMock/Routine.cpp" />
+        <option value="$PROJECT_DIR$/../FSCSMock/BatchRoutine.h" />
+        <option value="$PROJECT_DIR$/../FSCSMock/Routine.h" />
+        <option value="$PROJECT_DIR$/../FSCSMock/Sensor.h" />
+        <option value="$PROJECT_DIR$/../FSCSMock/LevelSensor.cpp" />
+        <option value="$PROJECT_DIR$/../FSCSMock/LevelSensor.h" />
+        <option value="$PROJECT_DIR$/../FSCSMock/Controller.h" />
+        <option value="$PROJECT_DIR$/../FSCSMock/Controller.cpp" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/DefaultProfile.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FlowMeter.cpp" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/TempSensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/PHSensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/WetTraySensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Pump.cpp" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/TempSensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Sensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/BatchRoutine.cpp" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/BatchRoutine.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/FreshBatchRoutine.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Profile.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/Profiles/DefaultProfile.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/Sensors/PHSensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/Sensors/TempSensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/Sensors/WetTraySensor.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Routine.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/Routines/FreshBatchRoutine.cpp" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Controller.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FSCS/Routines/FreshBatchRoutine.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Pump.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/FlowMeter.h" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Routine.cpp" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/CMakeLists.txt" />
+        <option value="$PROJECT_DIR$/../MockControlSystem/Controller.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
       </list>
     </option>
@@ -189,13 +190,13 @@
         <subPane>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="MetaControlSim" />
+              <option name="myItemId" value="FSCSMock" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
             </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
-              <option name="myItemId" value="MetaControlSim" />
+              <option name="myItemId" value="FSCSMock" />
               <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$1$1" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
@@ -216,15 +217,15 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/FSCS/Profiles" />
-      <recent name="$PROJECT_DIR$/FSCS/Sensors" />
-      <recent name="$PROJECT_DIR$/FSCS/Routines" />
-      <recent name="$PROJECT_DIR$/FSCS" />
-      <recent name="$PROJECT_DIR$/FSCS" />
+      <recent name="$PROJECT_DIR$/../MockControlSystem/FSCS/Profiles" />
+      <recent name="$PROJECT_DIR$/../MockControlSystem/FSCS/Sensors" />
+      <recent name="$PROJECT_DIR$/../MockControlSystem/FSCS/Routines" />
+      <recent name="$PROJECT_DIR$/../MockControlSystem/FSCS" />
+      <recent name="$PROJECT_DIR$/../FSCSMock/FSCS" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Build All">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="MetaControlSim" TARGET_NAME="MetaControlSim" CONFIG_NAME="Debug">
+    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="FSCSMock" TARGET_NAME="FSCSMock" CONFIG_NAME="Debug">
       <envs />
       <method />
     </configuration>
@@ -237,17 +238,27 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="false" name="FSCSMock" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="FSCSMock" TARGET_NAME="FSCSMock" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="FSCSMock" RUN_TARGET_NAME="FSCSMock">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="MockControlSystem" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="MockControlSystem" TARGET_NAME="MockControlSystem" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MockControlSystem" RUN_TARGET_NAME="MockControlSystem">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="MockControlSystem" TARGET_NAME="MockControlSystem" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MockControlSystem" RUN_TARGET_NAME="MockControlSystem">
+      <envs />
+      <method />
+    </configuration>
     <configuration default="false" name="MetaControlSim" type="CMakeRunConfiguration" factoryName="Application" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="MetaControlSim" TARGET_NAME="MetaControlSim" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MetaControlSim" RUN_TARGET_NAME="MetaControlSim">
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="Build All" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="" PASS_PARENT_ENVS="FALSE" PROJECT_NAME="MetaControlSim" TARGET_NAME="MetaControlSim" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="MetaControlSim" RUN_TARGET_NAME="MetaControlSim">
-      <envs />
-      <method />
-    </configuration>
-    <list size="2">
-      <item index="0" class="java.lang.String" itemvalue="Application.MetaControlSim" />
-      <item index="1" class="java.lang.String" itemvalue="Application.Build All" />
+    <list size="4">
+      <item index="0" class="java.lang.String" itemvalue="Application.FSCSMock" />
+      <item index="1" class="java.lang.String" itemvalue="Application.MockControlSystem" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Build All" />
+      <item index="3" class="java.lang.String" itemvalue="Application.MetaControlSim" />
     </list>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
@@ -265,9 +276,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1912" height="1049" extended-state="4" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.106282726" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.106282726" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32912722" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32983193" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />

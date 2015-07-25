@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$USER_HOME$/code/cpp/MockControlSystem/.idea/FSCSMock.iml" filepath="$USER_HOME$/code/cpp/MockControlSystem/.idea/FSCSMock.iml" />
+      <module fileurl="file://$USER_HOME$/code/cpp/MetaControlSim/.idea/FSCSMock.iml" filepath="$USER_HOME$/code/cpp/MetaControlSim/.idea/FSCSMock.iml" />
     </modules>
   </component>
 </project>
