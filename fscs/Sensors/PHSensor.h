@@ -10,6 +10,7 @@
 
 class PHSensor : public Sensor {
 public:
+    PHSensor(std::unordered_map<std::string, std::string> attrs);
     float getReading() { return ph; }
 private:
     float ph = 7;
