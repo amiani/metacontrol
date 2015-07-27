@@ -5,6 +5,6 @@
 #include <iostream>
 #include "FreshBatchRoutine.h"
 
-void FreshBatchRoutine::start() {
+bool FreshBatchRoutine::start() {
     std::cout << "Starting " << name << "routine";
 }

@@ -8,12 +8,12 @@
 
 #include <string>
 #include <memory>
-#include "FlowMeter.h"
+#include "Flowmeter.h"
 #include <unordered_map>
 
 class Pump {
 public:
-    Pump(std::unordered_map<std::string, std::string> attrs);
+    Pump(std::unordered_map<std::string, std::string> attrs, Flowmeter * flowmeter);
     ~Pump() {
         delete flowmeter;
     }
@@ -22,6 +22,7 @@ public:
     void stop();
     bool lock();
     void unlock();
+    bool isLocked();
 
 private:
     bool locked = false;
@@ -29,7 +30,7 @@ private:
     int checkFlowmeter();
     std::string name;
     std::string port;
-    FlowMeter* flowmeter;
+    Flowmeter * flowmeter;
 };
 
 

@@ -15,16 +15,16 @@ public:
     Profile(char filename[], std::function<void (const Routine*)> addRoutine);
     void checkReading(std::string name, float reading);
     //void checkTime(tm* gmt);
-    std::unordered_map<std::string, Pump*> makePumps();
     std::unordered_map<std::string, Sensor*> makeSensors();
+    std::unordered_map<std::string, Pump*> makePumps(std::unordered_map<std::string, Flowmeter*> sensors);
     //std::unordered_map<std::string, Routine*> getRoutines();
 private:
     void readProfile(char filename[]);
     std::function<void (const Routine*)> addRoutine;
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> pumpinfo;
-    std::unordered_map<std::string, Pump*>* pumps;
+    //std::unordered_map<std::string, Pump*>* pumps;
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sensorinfo;
-    std::unordered_map<std::string, Sensor*>* sensors;
+    //std::unordered_map<std::string, Sensor*>* sensors;
 };
 
 #endif //FSCSMOCK_PROFILE_H

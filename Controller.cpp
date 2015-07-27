@@ -11,9 +11,9 @@ Controller::Controller() {
 }
 
 bool Controller::init() {
-    profile = new Profile("defaultprofile.txt", this->addRoutine);
-    pumps = profile->makePumps();
+    profile = new Profile("defaultprofile.txt", this->&addRoutine);
     sensors = profile->makeSensors();
+    pumps = profile->makePumps(getFlowmeters());
     return true;
 }
 
@@ -42,6 +42,17 @@ void Controller::checkSensors() {
 }
 
 void Controller::addRoutine(Routine* r) {
+    r->acquirePumps(pumps);
     routines.push_back(r);
     std::sort(routines.begin(), routines.end());
+}
+
+std::unordered_map<std::string, Flowmeter *> Controller::getFlowmeters() {
+    std::unordered_map<std::string, Flowmeter*> flowmeters;
+    for (auto sensor : sensors) {
+        Flowmeter* s = dynamic_cast<Flowmeter*>(sensor.second);
+        if (s != nullptr)
+            flowmeters.insert(std::make_pair<std::string, Flowmeter*>(sensor.first, s));
+    }
+    return flowmeters;
 }

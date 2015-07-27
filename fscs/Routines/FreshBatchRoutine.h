@@ -12,9 +12,8 @@ class FreshBatchRoutine : public Routine {
 public:
     FreshBatchRoutine(std::unordered_map<std::string, Pump*> syspumps, std::string name)
             : Routine(syspumps, 0, name) {}
-    void start();
-
 private:
+    void run();
     int target;
 };
 

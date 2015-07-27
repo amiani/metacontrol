@@ -12,9 +12,10 @@
 
 class Routine {
 public:
-    Routine(std::unordered_map<std::string, Pump*> syspumps, int priority, std::string name);
-    virtual void start()=0;
-    bool acquirePumps(std::unordered_map<std::string, Pump*> &syspumps);
+    Routine(int priority, std::string name, std::string pumpnames[])
+            : priority(priority), name(name), pumpnames(pumpnames) {}
+    bool start();
+    bool acquirePumps(std::unordered_map<std::string, Pump*> syspumps);
     virtual void sendMessage();
 
     bool operator < (const Routine& r) const {
@@ -24,10 +25,14 @@ public:
 protected:
     int priority = 3;
     std::string name;
+    virtual void run()=0;
 
 private:
+    bool checkPumps();
+    void lockPumps();
     void releasePumps();
-    std::unordered_map<std::string, Pump*> pumps;
+    std::string pumpnames[];
+    std::vector<Pump*> pumps;
 };
 
 #endif //FSCSMOCK_ROUTINE_H

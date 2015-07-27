@@ -10,8 +10,10 @@
 #include "fscs/Sensors/ECSensor.h"
 #include "Controller.h"
 #include <sstream>
+#include <iostream>
 
-Profile::Profile(char *filename, std::function<void(const Routine *)> addRoutine) : addRoutine(addRoutine) {
+Profile::Profile(char *filename, std::function<void (const Routine*)> addRoutine)
+        : addRoutine(addRoutine) {
     readProfile(filename);
 }
 
@@ -22,15 +24,15 @@ void Profile::readProfile(char filename[]) {
     std::vector<std::string> lines;
     while (std::getline(file, line))
         lines.push_back(line);
-    for (std::string line : lines) {
+    for (std::string &l : lines) {
         std::unordered_map<std::string, std::string> attrs;
-        std::istringstream linestream(line);
+        std::istringstream linestream(l);
         std::string pair;
         std::vector<std::string> pairs;
         while (std::getline(linestream, pair, ','))
             pairs.push_back(pair);
-        for (std::string pair : pairs) {
-            std::istringstream pairstream(pair);
+        for (std::string p : pairs) {
+            std::istringstream pairstream(p);
             std::string keyvalue[2];
             for (int i = 0; i != 2; i++)
                 std::getline(pairstream, keyvalue[i], ':');
@@ -42,36 +44,41 @@ void Profile::readProfile(char filename[]) {
         else if (attrs["type"] == "routine") {
 
         }
-        else if (attrs["type"] == "sensor") {
+        else if (attrs["type"] == "sensor")
             sensorinfo.insert(std::make_pair(attrs["name"], attrs));
-        }
     }
-}
-
-std::unordered_map<std::string, Pump*> Profile::makePumps() {
-    std::unordered_map<std::string, Pump*> tpumps;
-    for (auto pair : pumpinfo)
-        tpumps.insert(std::make_pair(pair.first, new Pump(pair.second)));
-    pumps = &tpumps;
-    return tpumps;
 }
 
 std::unordered_map<std::string, Sensor*> Profile::makeSensors() {
-    std::unordered_map<std::string, Sensor*> tsensors;
+    std::unordered_map<std::string, Sensor*> sensors;
     for (auto pair : sensorinfo) {
         std::string subtype = pair.second["subtype"];
         if (subtype == "flow")
-            tsensors.insert(std::make_pair(pair.first, new FlowMeter(pair.second)));
+            sensors.insert(std::make_pair(pair.first, new Flowmeter(pair.second)));
         else if (subtype == "ph")
-            tsensors.insert(std::make_pair(pair.first, new PHSensor(pair.second)));
+            sensors.insert(std::make_pair(pair.first, new PHSensor(pair.second)));
         else if (subtype == "temp")
-            tsensors.insert(std::make_pair(pair.first, new TempSensor(pair.second)));
+            sensors.insert(std::make_pair(pair.first, new TempSensor(pair.second)));
         else if (subtype == "wettray")
-           tsensors.insert(std::make_pair(pair.first, new WetTraySensor(pair.second)));
+            sensors.insert(std::make_pair(pair.first, new WetTraySensor(pair.second)));
         else if (subtype == "ec")
-            tsensors.insert(std::make_pair(pair.first, new ECSensor(pair.second)));
+            sensors.insert(std::make_pair(pair.first, new ECSensor(pair.second)));
     }
-    sensors = &tsensors;
-    return tsensors;
+    return sensors;
+}
+
+std::unordered_map<std::string, Pump*> Profile::makePumps(std::unordered_map<std::string, Flowmeter*> flowmeters) {
+    std::unordered_map<std::string, Pump*> pumps;
+    for (auto pair : pumpinfo) {
+        try {
+            Flowmeter *flowmeter = flowmeters.at("fm" + pair.first);
+            pumps.insert(std::make_pair(pair.first, new Pump(pair.second, flowmeter)));
+        }
+        catch (std::out_of_range oorex) {
+            std::cout << pair.first << " has no associated flowmeter" << std::endl;
+            pumps.insert(std::make_pair(pair.first, new Pump(pair.second)));
+        }
+    }
+    return pumps;
 }
 

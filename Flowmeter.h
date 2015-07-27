@@ -8,9 +8,9 @@
 
 #include "Sensor.h"
 
-class FlowMeter : public Sensor {
+class Flowmeter : public Sensor {
 public:
-    FlowMeter(std::unordered_map<std::string, std::string> attrs);
+    Flowmeter(std::unordered_map<std::string, std::string> attrs);
     float getReading();
     void resetCount() { count = 0; }
     void setKfactor(float kfactor);

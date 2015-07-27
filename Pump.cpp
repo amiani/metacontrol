@@ -4,12 +4,10 @@
 
 #include "Pump.h"
 
-Pump::Pump(std::unordered_map<std::string, std::string> attrs) {
+Pump::Pump(std::unordered_map<std::string, std::string> attrs, Flowmeter* flowmeter)
+        : flowmeter(flowmeter) {
     name = attrs["name"];
     port = attrs["port"];
-    auto fmport = attrs.find("flowmeter");
-    if (fmport != attrs.end())
-        fmport->second
 }
 
 void Pump::update() {
@@ -36,4 +34,8 @@ bool Pump::lock() {
 
 void Pump::unlock() {
     locked = false;
+}
+
+bool Pump::isLocked() {
+    return locked;
 }

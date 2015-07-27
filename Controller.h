@@ -18,6 +18,7 @@
 class Controller {
 public:
     Controller();
+    std::unordered_map<std::string, Flowmeter*> getFlowmeters();
 
 private:
     bool init();

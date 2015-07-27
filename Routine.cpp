@@ -5,24 +5,46 @@
 #include <iostream>
 #include "Routine.h"
 
-Routine::Routine(std::unordered_map<std::string, Pump*> syspumps, int priority, std::string name)
-        : priority(priority), name(name){
-    for (auto &p : pumps) {
-        if (syspumps[p.first])
-            p.second = syspumps[p.first];
-        else
-            std::cout << "No such pump." << std::endl;
+bool Routine::start() {
+    std::cout << "starting " << name << " routine" << std::endl;
+    if (checkPumps()) {
+        lockPumps();
+        run();
+        releasePumps();
+        sendMessage();
+        return true;
+    }
+    else {
+        std::cout << name << " routine couldn't acquire pumps" << std::endl;
+        return false;
     }
 }
 
-void Routine::start() {
-    std::cout << "starting " << name << " routine\n";
-}
-
-bool Routine::acquirePumps(std::unordered_map<std::string, Pump*> &syspumps) {
-    for (auto &p : pumps) {
-        if (p.second->lock())
+bool Routine::checkPumps() {
+    for (auto p : pumps) {
+        if (p->isLocked())
             return false;
     }
     return true;
+}
+
+bool Routine::acquirePumps(std::unordered_map<std::string, Pump*> syspumps) {
+    try {
+        for (auto pname : pumpnames)
+            pumps.push_back(syspumps.at(pname));
+        return true;
+    }
+    catch (std::out_of_range ofrex) {
+        return false;
+    }
+}
+
+void Routine::lockPumps() {
+    for (auto p : pumps)
+        p->lock();
+}
+
+void Routine::releasePumps() {
+    for (auto p : pumps)
+        p->unlock();
 }

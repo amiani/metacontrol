@@ -1,0 +1,3 @@
+type:pump,name:conc,port:j15,flowmeter:j20
+type:sensor,name:LS1,port:j16,subtype:level
+type:sensor,name:fm1,port:j17,subtype:flow,kfactor:1.3
