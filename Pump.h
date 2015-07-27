@@ -9,23 +9,26 @@
 #include <string>
 #include <memory>
 #include "FlowMeter.h"
+#include <unordered_map>
 
 class Pump {
 public:
-    Pump(std::string name, std::string port, FlowMeter* fm = nullptr) : name(name), flowmeter(fm) {}
+    Pump(std::unordered_map<std::string, std::string> attrs);
     ~Pump() {
         delete flowmeter;
     }
-    void start();
+    void update();
+    void pumpml(int ml);
     void stop();
     bool lock();
     void unlock();
 
 private:
-    bool pumping = false;
     bool locked = false;
+    int topump = 0;
+    int checkFlowmeter();
     std::string name;
-    std::string output;
+    std::string port;
     FlowMeter* flowmeter;
 };
 

@@ -10,8 +10,9 @@
 
 class FlowMeter : public Sensor {
 public:
-    FlowMeter(std::string port) : Sensor(port), count(0), kfactor(1.3) {}
+    FlowMeter(std::unordered_map<std::string, std::string> attrs);
     float getReading();
+    void resetCount() { count = 0; }
     void setKfactor(float kfactor);
 
 private:

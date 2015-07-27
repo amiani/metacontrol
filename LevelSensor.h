@@ -10,6 +10,7 @@
 
 class LevelSensor : public Sensor {
 public:
+    LevelSensor(std::unordered_map<std::string, std::string> attrs);
     float getReading();
 private:
     int isup = 0;

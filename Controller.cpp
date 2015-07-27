@@ -4,11 +4,6 @@
 
 #include "Controller.h"
 #include <algorithm>
-#include <sstream>
-#include <boost/python.hpp>
-#include "python3.4m/Python.h"
-
-using namespace boost;
 
 Controller::Controller() {
     if (init())
@@ -16,18 +11,10 @@ Controller::Controller() {
 }
 
 bool Controller::init() {
-    readProfile("/defaultprofile.txt");
-}
-
-void Controller::readProfile(char file[]) {
-    std::istringstream prflstream(file);
-    std::string line;
-    std::unordered_map<std::string, std::string> options;
-    python::object pyfunc;
-    Py_Initialize();
-    pyfunc();
-    Py_Finalize();
-
+    profile = new Profile("defaultprofile.txt", this->addRoutine);
+    pumps = profile->makePumps();
+    sensors = profile->makeSensors();
+    return true;
 }
 
 void Controller::start() {
@@ -38,15 +25,23 @@ void Controller::start() {
         if (r->acquirePumps(pumps)) {
             routines.erase(routines.begin());
             r->start();
+            delete r;
         }
         std::sort(routines.begin(), routines.end());
-        profile.checkTime(std::gmtime(&clock));
+        for (auto pumppair : pumps)
+            pumppair.second->update();
+        //profile.checkTime(std::gmtime(&clock));
     }
 }
 
 void Controller::checkSensors() {
     for (auto &s : sensors) {
         float reading = s.second->getReading();
-        profile.checkReading(s.first, reading);
+        profile->checkReading(s.first, reading);
     }
+}
+
+void Controller::addRoutine(Routine* r) {
+    routines.push_back(r);
+    std::sort(routines.begin(), routines.end());
 }

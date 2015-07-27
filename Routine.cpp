@@ -14,6 +14,11 @@ Routine::Routine(std::unordered_map<std::string, Pump*> syspumps, int priority, 
             std::cout << "No such pump." << std::endl;
     }
 }
+
+void Routine::start() {
+    std::cout << "starting " << name << " routine\n";
+}
+
 bool Routine::acquirePumps(std::unordered_map<std::string, Pump*> &syspumps) {
     for (auto &p : pumps) {
         if (p.second->lock())

@@ -5,14 +5,26 @@
 #ifndef FSCSMOCK_PROFILE_H
 #define FSCSMOCK_PROFILE_H
 #include <string>
+#include <bits/unordered_map.h>
+#include "Pump.h"
+#include "Routine.h"
 
 
 class Profile {
 public:
-    Profile() {}
-    void checkReading(std::string name, float reading) {}
-    void checkTime(tm* gmt);
+    Profile(char filename[], std::function<void (const Routine*)> addRoutine);
+    void checkReading(std::string name, float reading);
+    //void checkTime(tm* gmt);
+    std::unordered_map<std::string, Pump*> makePumps();
+    std::unordered_map<std::string, Sensor*> makeSensors();
+    //std::unordered_map<std::string, Routine*> getRoutines();
+private:
+    void readProfile(char filename[]);
+    std::function<void (const Routine*)> addRoutine;
+    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> pumpinfo;
+    std::unordered_map<std::string, Pump*>* pumps;
+    std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sensorinfo;
+    std::unordered_map<std::string, Sensor*>* sensors;
 };
-
 
 #endif //FSCSMOCK_PROFILE_H

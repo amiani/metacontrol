@@ -9,7 +9,7 @@
 #include "LevelSensor.h"
 #include "Routine.h"
 #include "Profile.h"
-#include "FSCS/Profiles/DefaultProfile.h"
+#include "fscs/Profiles/DefaultProfile.h"
 #include <vector>
 #include <queue>
 #include <unordered_map>
@@ -21,16 +21,15 @@ public:
 
 private:
     bool init();
-    void readProfile(char file[]);  //this method will likely end up in an initializer class
     void start();
     void checkSensors();
     bool runswitch = false;
-    Profile profile;
+    Profile* profile;
     std::time_t clock = std::time(nullptr);
-    std::unordered_map<std::string, Pump*> pumps;
-    std::unordered_map<std::string, Sensor*> sensors;
+    static std::unordered_map<std::string, Pump*> pumps;
+    static std::unordered_map<std::string, Sensor*> sensors;
+    void addRoutine(Routine*);
     std::vector<Routine*> routines;
 };
-
 
 #endif //FSCSMOCK_CONTROLLER_H

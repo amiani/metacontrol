@@ -4,6 +4,10 @@
 
 #include "LevelSensor.h"
 
+LevelSensor::LevelSensor(std::unordered_map<std::string, std::string> attrs) : Sensor(attrs) {
+
+}
+
 float LevelSensor::getReading() {
     return isup;
 }

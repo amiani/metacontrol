@@ -12,11 +12,10 @@
 
 class Routine {
 public:
-    Routine();
     Routine(std::unordered_map<std::string, Pump*> syspumps, int priority, std::string name);
-    virtual void start() =0;
+    virtual void start()=0;
     bool acquirePumps(std::unordered_map<std::string, Pump*> &syspumps);
-    void sendMessage();
+    virtual void sendMessage();
 
     bool operator < (const Routine& r) const {
         return (priority < r.priority);

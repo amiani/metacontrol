@@ -4,11 +4,26 @@
 
 #include "Pump.h"
 
-void Pump::start() {
-    pumping = true;
+Pump::Pump(std::unordered_map<std::string, std::string> attrs) {
+    name = attrs["name"];
+    port = attrs["port"];
+    auto fmport = attrs.find("flowmeter");
+    if (fmport != attrs.end())
+        fmport->second
 }
 
-void Pump::stop() { pumping = false; }
+void Pump::update() {
+    if (topump >= 0)
+        flowmeter->getReading();
+        //send current
+}
+
+void Pump::pumpml(int ml) {
+    topump = ml;
+    flowmeter->resetCount();
+}
+
+void Pump::stop() { topump = 0; }
 
 bool Pump::lock() {
     if (locked)
