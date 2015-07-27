@@ -1,0 +1,5 @@
+type:testpump,name:testwater,port:b12
+
+type:sensor,name:testph,port:j45,subtype:testsensor
+
+type:sensor,name:testfmwater,port:j88,subtype:testflowmeter

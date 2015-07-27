@@ -1,19 +1,14 @@
 //
-// Created by ami on 22/07/15.
+// Created by ami on 25/07/15.
 //
 
 #include "Pump.h"
 
-Pump::Pump(std::unordered_map<std::string, std::string> attrs, Flowmeter* flowmeter)
-        : flowmeter(flowmeter) {
-    name = attrs["name"];
-    port = attrs["port"];
-}
-
 void Pump::update() {
-    if (topump >= 0)
-        flowmeter->getReading();
-        //send current
+    if (topump >= 0) {
+        float pumped = flowmeter->getReading();
+        topump -= pumped;
+    }
 }
 
 void Pump::pumpml(int ml) {

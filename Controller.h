@@ -1,5 +1,5 @@
 //
-// Created by ami on 22/07/15.
+// Created by ami on 25/07/15.
 //
 
 #ifndef FSCSMOCK_CONTROLLER_H
@@ -21,14 +21,13 @@ public:
     std::unordered_map<std::string, Flowmeter*> getFlowmeters();
 
 private:
-    bool init();
     void start();
     void checkSensors();
     bool runswitch = false;
     Profile* profile;
     std::time_t clock = std::time(nullptr);
-    static std::unordered_map<std::string, Pump*> pumps;
-    static std::unordered_map<std::string, Sensor*> sensors;
+    std::unordered_map<std::string, Pump*> pumps;
+    std::unordered_map<std::string, Sensor*> sensors;
     void addRoutine(Routine*);
     std::vector<Routine*> routines;
 };

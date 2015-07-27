@@ -1,5 +1,5 @@
 //
-// Created by ami on 22/07/15.
+// Created by ami on 25/07/15.
 //
 
 #ifndef FSCSMOCK_FLOWMETER_H
@@ -10,8 +10,8 @@
 
 class Flowmeter : public Sensor {
 public:
-    Flowmeter(std::unordered_map<std::string, std::string> attrs);
-    float getReading();
+    Flowmeter(std::unordered_map<std::string, std::string> attrs) : Sensor(attrs) {}
+    virtual float getReading();
     void resetCount() { count = 0; }
     void setKfactor(float kfactor);
 

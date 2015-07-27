@@ -1,5 +1,5 @@
 //
-// Created by ami on 22/07/15.
+// Created by ami on 25/07/15.
 //
 
 #include <iostream>
@@ -48,3 +48,5 @@ void Routine::releasePumps() {
     for (auto p : pumps)
         p->unlock();
 }
+
+void Routine::sendMessage() { }

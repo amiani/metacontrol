@@ -10,11 +10,10 @@
 
 class TempSensor : public Sensor {
 public:
-    TempSensor(std::unordered_map<std::string, std::string> attrs);
+    TempSensor(std::unordered_map<std::string, std::string> attrs) : Sensor(attrs) {}
     float getReading() { return temp; }
 private:
     float temp;
-
 };
 
 

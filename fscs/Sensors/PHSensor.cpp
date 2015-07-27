@@ -3,3 +3,5 @@
 //
 
 #include "PHSensor.h"
+
+float getReading();

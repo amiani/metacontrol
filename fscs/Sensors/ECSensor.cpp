@@ -3,3 +3,7 @@
 //
 
 #include "ECSensor.h"
+
+float ECSensor::getReading() {
+    return ec;
+}

@@ -10,8 +10,8 @@
 
 class FreshBatchRoutine : public Routine {
 public:
-    FreshBatchRoutine(std::unordered_map<std::string, Pump*> syspumps, std::string name)
-            : Routine(syspumps, 0, name) {}
+    FreshBatchRoutine(int priority, std::string name, std::vector<std::string> pumpnames, int target)
+            : Routine(priority, name, pumpnames), target(target) {}
 private:
     void run();
     int target;

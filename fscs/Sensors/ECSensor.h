@@ -10,8 +10,11 @@
 
 class ECSensor : public Sensor {
 public:
-    ECSensor(std::unordered_map<std::string, std::string> attrs);
+    ECSensor(std::unordered_map<std::string, std::string> attrs) : Sensor(attrs) {}
+    float getReading();
 
+private:
+    int ec;
 };
 
 

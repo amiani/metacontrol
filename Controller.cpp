@@ -1,20 +1,17 @@
 //
-// Created by ami on 22/07/15.
+// Created by ami on 25/07/15.
 //
 
 #include "Controller.h"
 #include <algorithm>
 
 Controller::Controller() {
-    if (init())
-        start();
-}
-
-bool Controller::init() {
-    profile = new Profile("defaultprofile.txt", this->&addRoutine);
+    std::function<void(Routine*)> ar = [this](Routine* r){ addRoutine(r); };
+    profile = new Profile("testprofile.txt", ar);
     sensors = profile->makeSensors();
     pumps = profile->makePumps(getFlowmeters());
-    return true;
+
+    start();
 }
 
 void Controller::start() {
@@ -30,7 +27,8 @@ void Controller::start() {
         std::sort(routines.begin(), routines.end());
         for (auto pumppair : pumps)
             pumppair.second->update();
-        //profile.checkTime(std::gmtime(&clock));
+
+        profile->checkTime(std::gmtime(&clock));
     }
 }
 
@@ -51,8 +49,8 @@ std::unordered_map<std::string, Flowmeter *> Controller::getFlowmeters() {
     std::unordered_map<std::string, Flowmeter*> flowmeters;
     for (auto sensor : sensors) {
         Flowmeter* s = dynamic_cast<Flowmeter*>(sensor.second);
-        if (s != nullptr)
-            flowmeters.insert(std::make_pair<std::string, Flowmeter*>(sensor.first, s));
+        if (s)
+            flowmeters.insert(std::make_pair(sensor.first, s));
     }
     return flowmeters;
 }

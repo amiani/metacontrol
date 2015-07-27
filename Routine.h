@@ -12,7 +12,7 @@
 
 class Routine {
 public:
-    Routine(int priority, std::string name, std::string pumpnames[])
+    Routine(int priority, std::string name, std::vector<std::string> pumpnames)
             : priority(priority), name(name), pumpnames(pumpnames) {}
     bool start();
     bool acquirePumps(std::unordered_map<std::string, Pump*> syspumps);
@@ -31,7 +31,7 @@ private:
     bool checkPumps();
     void lockPumps();
     void releasePumps();
-    std::string pumpnames[];
+    std::vector<std::string> pumpnames;
     std::vector<Pump*> pumps;
 };
 

@@ -1,5 +1,5 @@
 //
-// Created by ami on 22/07/15.
+// Created by ami on 25/07/15.
 //
 
 #ifndef FSCSMOCK_PUMP_H
@@ -13,7 +13,9 @@
 
 class Pump {
 public:
-    Pump(std::unordered_map<std::string, std::string> attrs, Flowmeter * flowmeter);
+    Pump(std::unordered_map<std::string, std::string> attrs, Flowmeter* fm)
+            : attributes(attrs), flowmeter(fm) {}
+    Pump(std::unordered_map<std::string, std::string> attrs) : Pump(attrs, nullptr) {}
     ~Pump() {
         delete flowmeter;
     }
@@ -24,12 +26,13 @@ public:
     void unlock();
     bool isLocked();
 
+protected:
+    std::unordered_map<std::string, std::string> attributes;
+
 private:
     bool locked = false;
     int topump = 0;
     int checkFlowmeter();
-    std::string name;
-    std::string port;
     Flowmeter * flowmeter;
 };
 

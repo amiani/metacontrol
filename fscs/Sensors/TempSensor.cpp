@@ -3,3 +3,5 @@
 //
 
 #include "TempSensor.h"
+
+float getReading();

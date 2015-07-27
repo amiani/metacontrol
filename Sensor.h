@@ -1,5 +1,5 @@
 //
-// Created by ami on 23/07/15.
+// Created by ami on 25/07/15.
 //
 
 #ifndef FSCSMOCK_SENSOR_H
@@ -9,12 +9,11 @@
 
 class Sensor {
 public:
-    Sensor(std::unordered_map<std::string, std::string> attrs);
+    Sensor(std::unordered_map<std::string, std::string> attrs) : attributes(attrs) {}
     virtual float getReading()=0;
 
 protected:
-    std::string name;
-    std::string port;
+    std::unordered_map<std::string, std::string> attributes;
 };
 
 

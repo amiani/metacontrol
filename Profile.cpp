@@ -1,5 +1,5 @@
 //
-// Created by ami on 23/07/15.
+// Created by ami on 25/07/15.
 //
 
 #include "Profile.h"
@@ -12,10 +12,12 @@
 #include <sstream>
 #include <iostream>
 
-Profile::Profile(char *filename, std::function<void (const Routine*)> addRoutine)
+Profile::Profile(char *filename, std::function<void (Routine*)> addRoutine)
         : addRoutine(addRoutine) {
     readProfile(filename);
 }
+
+void Profile::checkReading(std::string name, float reading) {}
 
 void Profile::readProfile(char filename[]) {
     std::ifstream file;
@@ -81,4 +83,3 @@ std::unordered_map<std::string, Pump*> Profile::makePumps(std::unordered_map<std
     }
     return pumps;
 }
-

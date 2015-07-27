@@ -10,7 +10,7 @@
 
 class WetTraySensor : public Sensor {
 public:
-    WetTraySensor(std::unordered_map<std::string, std::string> attrs);
+    WetTraySensor(std::unordered_map<std::string, std::string> attrs) : Sensor(attrs) {}
     float getReading() { return iswet; }
 private:
     bool iswet = false;
