@@ -3,3 +3,11 @@
 //
 
 #include "TestPump.h"
+
+void TestPump::update() {
+
+}
+
+void TestPump::pumpml(int ml) {
+    topump = ml;
+}

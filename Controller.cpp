@@ -16,26 +16,18 @@ Controller::Controller() {
 
 void Controller::start() {
     while (runswitch) {
-        checkSensors();
-        //TODO: thread this so that multiple routines can run simultaneously
-        Routine* r = routines.front();
-        if (r->acquirePumps(pumps)) {
-            routines.erase(routines.begin());
-            r->start();
-            delete r;
-        }
-        std::sort(routines.begin(), routines.end());
-        for (auto pumppair : pumps)
-            pumppair.second->update();
-
+        checkSwitches();
         profile->checkTime(std::gmtime(&clock));
+        state->update();
+        for (auto &p : pumps)
+            p.second->update();
     }
 }
 
-void Controller::checkSensors() {
-    for (auto &s : sensors) {
-        float reading = s.second->getReading();
-        profile->checkReading(s.first, reading);
+void Controller::checkSwitches() {
+    for (auto &s : switches) {
+        bool state = s.second->isUp();
+        profile->checkReading(s.first, state);
     }
 }
 
@@ -45,7 +37,7 @@ void Controller::addRoutine(Routine* r) {
     std::sort(routines.begin(), routines.end());
 }
 
-std::unordered_map<std::string, Flowmeter *> Controller::getFlowmeters() {
+std::unordered_map<std::string, Flowmeter*> Controller::getFlowmeters() {
     std::unordered_map<std::string, Flowmeter*> flowmeters;
     for (auto sensor : sensors) {
         Flowmeter* s = dynamic_cast<Flowmeter*>(sensor.second);

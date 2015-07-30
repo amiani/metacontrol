@@ -13,7 +13,8 @@
 class TestPump : public Pump {
 public:
     TestPump(std::unordered_map<std::string, std::string> attrs, Flowmeter* fm) : Pump(attrs, fm) {}
-
+    void update();
+    void pumpml(int ml);
 
 };
 

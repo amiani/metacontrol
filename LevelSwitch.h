@@ -5,13 +5,13 @@
 #ifndef FSCSMOCK_LEVELSENSOR_H
 #define FSCSMOCK_LEVELSENSOR_H
 
+#include "Switch.h"
+#include <string>
+#include <unordered_map>
 
-#include "Sensor.h"
-
-class LevelSensor : public Sensor {
+class LevelSwitch : public Switch {
 public:
-    LevelSensor(std::unordered_map<std::string, std::string> attrs);
-    float getReading();
+    LevelSwitch(std::unordered_map<std::string, std::string> attrs);
 private:
     int isup = 0;
 };

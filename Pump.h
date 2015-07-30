@@ -19,8 +19,8 @@ public:
     ~Pump() {
         delete flowmeter;
     }
-    void update();
-    void pumpml(int ml);
+    virtual void update();
+    virtual void pumpml(int ml);
     void stop();
     bool lock();
     void unlock();
@@ -28,10 +28,10 @@ public:
 
 protected:
     std::unordered_map<std::string, std::string> attributes;
+    int topump = 0;
 
 private:
     bool locked = false;
-    int topump = 0;
     int checkFlowmeter();
     Flowmeter * flowmeter;
 };
