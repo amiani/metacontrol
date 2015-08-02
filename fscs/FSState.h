@@ -5,24 +5,25 @@
 #ifndef METACONTROLSIM_FSSTATE_H
 #define METACONTROLSIM_FSSTATE_H
 
-
 #include "../State.h"
 #include "FSCS.h"
 
+class FSCS;
+
 class FSState : public State {
 public:
-    virtual void turnOn() {};
-    virtual void mixLow() {};
-    virtual void mixHigh() {};
-    virtual void sampleTimer();
-    virtual void referenceTimer();
-    virtual void turnOff();
+    virtual void turnOn()=0;
+    virtual void mixLow()=0;
+    virtual void mixHigh()=0;
+    virtual void sampleTimer()=0;
+    virtual void referenceTimer()=0;
+    virtual void turnOff()=0;
 
 protected:
-    FSCS* fscs;
     void changeState(FSState* newstate);
     bool isSampletime();
     bool isReferencetime();
+    int timeinstate = 0;
     float getEC();
 };
 

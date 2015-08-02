@@ -34,3 +34,7 @@ void Pump::unlock() {
 bool Pump::isLocked() {
     return locked;
 }
+
+float Pump::checkFlowmeter() {
+    return flowmeter->getReading();
+}

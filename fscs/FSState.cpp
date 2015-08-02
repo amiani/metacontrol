@@ -4,9 +4,12 @@
 
 #include "FSState.h"
 
+void FSState::changeState(FSState* newstate) {
+    fscs->state = newstate;
+}
 
 void OffState::turnOn() {
-    if (fscs->isMixHigh())
+    if (machine->isMixHigh())
         changeState(StandbyState::enter());
     else
         changeState(FastFillState::enter());

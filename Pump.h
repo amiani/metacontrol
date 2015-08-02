@@ -32,7 +32,7 @@ protected:
 
 private:
     bool locked = false;
-    int checkFlowmeter();
+    float checkFlowmeter();
     Flowmeter * flowmeter;
 };
 

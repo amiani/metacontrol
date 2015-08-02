@@ -11,6 +11,7 @@
 #include "Profile.h"
 #include "fscs/Profiles/DefaultProfile.h"
 #include "State.h"
+#include "Machine.h"
 #include <vector>
 #include <queue>
 #include <unordered_map>
@@ -24,15 +25,16 @@ public:
 private:
     void start();
     void checkSwitches();
+    void checkSensors();
     bool runswitch = false;
     Profile* profile;
+    Machine* machine;
     std::time_t clock = std::time(nullptr);
-    std::unordered_map<std::string, Pump*> pumps;
-    std::unordered_map<std::string, Sensor*> sensors;
-    std::unordered_map<std::string, Switch*> switches;
+    std::vector<Pump*> pumps;
+    std::vector<Sensor*> sensors;
+    std::vector<Switch*> switches;
     void addRoutine(Routine*);
     std::vector<Routine*> routines;
-    State* state;
 };
 
 #endif //FSCSMOCK_CONTROLLER_H

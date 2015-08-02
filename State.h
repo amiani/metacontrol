@@ -6,9 +6,15 @@
 #define METACONTROLSIM_STATE_H
 
 
+#include "Machine.h"
+
 class State {
 public:
+    State(Machine* machine) : machine(machine) {}
     virtual void update()=0;
+
+private:
+    Machine* machine;
 };
 
 

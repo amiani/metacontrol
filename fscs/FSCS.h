@@ -4,24 +4,32 @@
 
 #ifndef METACONTROLSIM_FSCSMACHINE_H
 #define METACONTROLSIM_FSCSMACHINE_H
+
 #include "FSState.h"
+#include "../Machine.h"
+#include <string>
 
+class FSState;
 
-class FSCS {
+class FSCS : public Machine {
 public:
-    FSCS();
+    FSCS() : state(new OffState()) {};
+    FSCS(const FSCS&);
+    ~FSCS();
 
-    void turnOn() { state->turnOn(); }
+    void turnOn();
+    void mixLow();
+    void mixHigh();
+    void sampleTimer();
+    void referenceTimer();
+    void turnOff();
+
     bool isMixHigh();
-    void mixLow() { state->mixLow(); }
-    void mixHigh() { state->mixHigh(); }
-    void sampleTimer() { state->sampleTimer(); }
-    void referenceTimer() { state->referenceTimer(); }
-    void turnOff() { state->turnOff(); }
+    void checkReading(std::string name, float reading);
+    void checkTime(tm* gmt);
 
 private:
     friend class FSState;
-    FSState* state;
     bool sampletime = false;
     bool referencetime = false;
 };

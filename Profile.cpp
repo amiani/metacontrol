@@ -51,34 +51,34 @@ void Profile::readProfile(char filename[]) {
     }
 }
 
-std::unordered_map<std::string, Sensor*> Profile::makeSensors() {
-    std::unordered_map<std::string, Sensor*> sensors;
+std::vector<Sensor*> Profile::makeSensors() {
+    std::vector<Sensor*> sensors;
     for (auto pair : sensorinfo) {
         std::string subtype = pair.second["subtype"];
         if (subtype == "flow")
-            sensors.insert(std::make_pair(pair.first, new Flowmeter(pair.second)));
+            sensors.push_back(new Flowmeter(pair.second));
         else if (subtype == "ph")
-            sensors.insert(std::make_pair(pair.first, new PHSensor(pair.second)));
+            sensors.push_back(new PHSensor(pair.second));
         else if (subtype == "temp")
-            sensors.insert(std::make_pair(pair.first, new TempSensor(pair.second)));
+            sensors.push_back(new TempSensor(pair.second));
         else if (subtype == "wettray")
-            sensors.insert(std::make_pair(pair.first, new WetTraySensor(pair.second)));
+            sensors.push_back(new WetTraySensor(pair.second));
         else if (subtype == "ec")
-            sensors.insert(std::make_pair(pair.first, new ECSensor(pair.second)));
+            sensors.push_back(new ECSensor(pair.second));
     }
     return sensors;
 }
 
-std::unordered_map<std::string, Pump*> Profile::makePumps(std::unordered_map<std::string, Flowmeter*> flowmeters) {
-    std::unordered_map<std::string, Pump*> pumps;
+std::vector<Pump*> Profile::makePumps(std::unordered_map<std::string, Flowmeter*> flowmeters) {
+    std::vector<Pump*> pumps;
     for (auto pair : pumpinfo) {
         try {
             Flowmeter *flowmeter = flowmeters.at("fm" + pair.first);
-            pumps.insert(std::make_pair(pair.first, new Pump(pair.second, flowmeter)));
+            pumps.push_back(new Pump(pair.second, flowmeter));
         }
         catch (std::out_of_range oorex) {
             std::cout << pair.first << " has no associated flowmeter" << std::endl;
-            pumps.insert(std::make_pair(pair.first, new Pump(pair.second)));
+            pumps.push_back(new Pump(pair.second));
         }
     }
     return pumps;

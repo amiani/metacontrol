@@ -9,11 +9,15 @@
 
 class Sensor {
 public:
-    Sensor(std::unordered_map<std::string, std::string> attrs) : attributes(attrs) {}
+    Sensor(std::unordered_map<std::string, std::string> attrs) : attributes(attrs) {
+        name = attributes.at("name");
+    }
     virtual float getReading()=0;
+    std::string getName() { return name; }
 
 protected:
     std::unordered_map<std::string, std::string> attributes;
+    std::string name;
 };
 
 

@@ -17,7 +17,6 @@ public:
 
 private:
     int count = 0;
-    std::string name;
     float kfactor;
 };
 
