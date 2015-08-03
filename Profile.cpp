@@ -12,12 +12,9 @@
 #include <sstream>
 #include <iostream>
 
-Profile::Profile(char *filename, std::function<void (Routine*)> addRoutine)
-        : addRoutine(addRoutine) {
+Profile::Profile(char *filename) {
     readProfile(filename);
 }
-
-void Profile::checkReading(std::string name, float reading) {}
 
 void Profile::readProfile(char filename[]) {
     std::ifstream file;
@@ -43,12 +40,19 @@ void Profile::readProfile(char filename[]) {
         if (attrs["type"] == "pump") {
             pumpinfo.insert(std::make_pair(attrs["name"], attrs));
         }
-        else if (attrs["type"] == "routine") {
-
+        else if (attrs["type"] == "switch") {
+            switchinfo.insert(std::make_pair(attrs["name"], attrs));
         }
         else if (attrs["type"] == "sensor")
             sensorinfo.insert(std::make_pair(attrs["name"], attrs));
     }
+}
+
+std::vector<Switch*> Profile::makeSwitches() {
+    std::vector<Switch*> switches;
+    for (auto pair : switchinfo)
+        switches.push_back(pair.second);
+    return switches;
 }
 
 std::vector<Sensor*> Profile::makeSensors() {

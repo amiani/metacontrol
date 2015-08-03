@@ -12,6 +12,7 @@ class FSCS;
 
 class FSState : public State {
 public:
+    FSState(FSCS* fscs) : State(fscs) {}
     virtual void turnOn()=0;
     virtual void mixLow()=0;
     virtual void mixHigh()=0;

@@ -8,10 +8,12 @@
 
 class Switch {
 public:
-    bool isUp() const;
+    bool isUp() const { return state; }
+    std::string getName() { return name; }
 
 private:
     bool state = false;
+    std::string name;
 };
 
 

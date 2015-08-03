@@ -4,10 +4,6 @@
 
 #include "FSState.h"
 
-void FSState::changeState(FSState* newstate) {
-    fscs->state = newstate;
-}
-
 void OffState::turnOn() {
     if (machine->isMixHigh())
         changeState(StandbyState::enter());
@@ -21,7 +17,7 @@ FastFillState* FastFillState::enter() {
 }
 
 void FastFillState::update() {
-    if (fscs->isMixHigh()) {
+    if (machine->isMixHigh()) {
         //stop pumps
         changeState(StandbyState::enter());
     }

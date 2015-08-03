@@ -9,29 +9,40 @@
 Controller::Controller() {
     //std::function<void(Routine*)> ar = [this](Routine* r){ addRoutine(r); };
     profile = new Profile("testprofile.txt");
+    switches = profile->makeSwitches();
     sensors = profile->makeSensors();
     pumps = profile->makePumps(getFlowmeters());
-    machine = new FSCS();
+    machine = new FSCS(switches, sensors, pumps);
 
     start();
 }
 
+Controller::Controller(const Controller& that) {
+    delete profile;
+    delete machine;
+    profile = that.profile;
+    machine = that.machine;
+}
+
+Controller::~Controller() {
+    delete profile;
+    delete machine;
+}
+
 void Controller::start() {
     while (runswitch) {
-        checkSwitches();
-        checkSensors();
         machine->update();
-        for (auto &p : pumps)
-            p->update();
+        //read keypad
+        //display LCD
     }
 }
 
-void Controller::checkSwitches() {
+/**void Controller::checkSwitches() {
     for (auto &s : switches) {
         bool state = s->isUp();
         profile->checkReading(s.first, state);
     }
-}
+}**/
 
 /**void Controller::addRoutine(Routine* r) {
     r->acquirePumps(pumps);

@@ -7,15 +7,22 @@
 
 #include "FSState.h"
 #include "../Machine.h"
+#include "../Pump.h"
+#include "../Switch.h"
 #include <string>
+#include <vector>
 
 class FSState;
 
 class FSCS : public Machine {
 public:
-    FSCS() : state(new OffState()) {};
-    FSCS(const FSCS&);
-    ~FSCS();
+    FSCS(std::vector<Switch*> switches, std::vector<Sensor*> sensor, std::vector<Pump*> pumps)
+            : Machine(new OffState, switches, sensors, pumps) {
+        dynamic_cast<FSState*>(state);
+        for (Switch* s : switches)
+            if (s->getName() == "LS5")
+                LS5 = s;
+    };
 
     void turnOn();
     void mixLow();
@@ -25,13 +32,12 @@ public:
     void turnOff();
 
     bool isMixHigh();
-    void checkReading(std::string name, float reading);
     void checkTime(tm* gmt);
 
 private:
-    friend class FSState;
     bool sampletime = false;
     bool referencetime = false;
+    Switch* LS5;
 };
 
 

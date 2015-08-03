@@ -8,12 +8,18 @@
 
 #include "Machine.h"
 
+class Machine;
+
 class State {
 public:
     State(Machine* machine) : machine(machine) {}
+    ~State();
+    //TODO: Implement copy and copy assignment constructors
+
     virtual void update()=0;
 
-private:
+protected:
+    void changeState(State* newstate);
     Machine* machine;
 };
 

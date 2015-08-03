@@ -20,6 +20,9 @@
 class Controller {
 public:
     Controller();
+    Controller(const Controller&);
+    ~Controller();
+
     std::unordered_map<std::string, Flowmeter*> getFlowmeters();
 
 private:
@@ -30,10 +33,7 @@ private:
     Profile* profile;
     Machine* machine;
     std::time_t clock = std::time(nullptr);
-    std::vector<Pump*> pumps;
-    std::vector<Sensor*> sensors;
-    std::vector<Switch*> switches;
-    void addRoutine(Routine*);
+    //void addRoutine(Routine*);
     std::vector<Routine*> routines;
 };
 
