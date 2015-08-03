@@ -3,17 +3,12 @@
 //
 
 #include "Controller.h"
-#include <algorithm>
 #include "fscs/FSCS.h"
 
 Controller::Controller() {
     //std::function<void(Routine*)> ar = [this](Routine* r){ addRoutine(r); };
     profile = new Profile("testprofile.txt");
-    switches = profile->makeSwitches();
-    sensors = profile->makeSensors();
-    pumps = profile->makePumps(getFlowmeters());
-    machine = new FSCS(switches, sensors, pumps);
-
+    machine = new FSCS(profile->makeSwitches(), profile->makeSensors(), profile->makePumps(getFlowmeters()));
     start();
 }
 

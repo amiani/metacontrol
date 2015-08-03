@@ -4,11 +4,21 @@
 
 #include "FSState.h"
 
-void OffState::turnOn() {
-    if (machine->isMixHigh())
-        changeState(StandbyState::enter());
-    else
-        changeState(FastFillState::enter());
+bool FSState::isRunSwitchOn() {
+    machine->getSwitch("RUNSWITCH")->isUp();
+}
+
+bool FSState::isMixHigh() {
+    return machine->LS5->isUp();
+}
+
+void OffState::update() {
+    if (isRunSwitchOn()) {
+        if (isMixHigh())
+            changeState(StandbyState::enter());
+        else
+            changeState(FastFillState::enter());
+    }
 }
 
 FastFillState* FastFillState::enter() {
@@ -17,7 +27,7 @@ FastFillState* FastFillState::enter() {
 }
 
 void FastFillState::update() {
-    if (machine->isMixHigh()) {
+    if (isMixHigh()) {
         //stop pumps
         changeState(StandbyState::enter());
     }

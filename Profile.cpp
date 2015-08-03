@@ -1,7 +1,6 @@
 //
 // Created by ami on 25/07/15.
 //
-
 #include "Profile.h"
 #include "fstream"
 #include "fscs/Sensors/PHSensor.h"
@@ -48,41 +47,41 @@ void Profile::readProfile(char filename[]) {
     }
 }
 
-std::vector<Switch*> Profile::makeSwitches() {
-    std::vector<Switch*> switches;
+std::unordered_map<std::string, Switch*> Profile::makeSwitches() {
+    std::unordered_map<std::string, Switch*> switches;
     for (auto pair : switchinfo)
-        switches.push_back(pair.second);
+        switches.insert(pair.second);
     return switches;
 }
 
-std::vector<Sensor*> Profile::makeSensors() {
-    std::vector<Sensor*> sensors;
+std::unordered_map<std::string, Sensor*> Profile::makeSensors() {
+    std::unordered_map<std::string, Sensor*> sensors;
     for (auto pair : sensorinfo) {
         std::string subtype = pair.second["subtype"];
         if (subtype == "flow")
-            sensors.push_back(new Flowmeter(pair.second));
+            sensors.insert(pair.first, new Flowmeter(pair.second));
         else if (subtype == "ph")
-            sensors.push_back(new PHSensor(pair.second));
+            sensors.insert(pair.first, new PHSensor(pair.second));
         else if (subtype == "temp")
-            sensors.push_back(new TempSensor(pair.second));
+            sensors.insert(pair.first, new TempSensor(pair.second));
         else if (subtype == "wettray")
-            sensors.push_back(new WetTraySensor(pair.second));
+            sensors.insert(pair.first, new WetTraySensor(pair.second));
         else if (subtype == "ec")
-            sensors.push_back(new ECSensor(pair.second));
+            sensors.insert(pair.first, new ECSensor(pair.second));
     }
     return sensors;
 }
 
-std::vector<Pump*> Profile::makePumps(std::unordered_map<std::string, Flowmeter*> flowmeters) {
-    std::vector<Pump*> pumps;
+std::unordered_map<std::string, Pump*> Profile::makePumps(std::unordered_map<std::string, Flowmeter*> flowmeters) {
+    std::unordered_map<std::string, Pump*> pumps;
     for (auto pair : pumpinfo) {
         try {
             Flowmeter *flowmeter = flowmeters.at("fm" + pair.first);
-            pumps.push_back(new Pump(pair.second, flowmeter));
+            pumps.insert(pair.first, new Pump(pair.second, flowmeter));
         }
         catch (std::out_of_range oorex) {
             std::cout << pair.first << " has no associated flowmeter" << std::endl;
-            pumps.push_back(new Pump(pair.second));
+            pumps.insert(pair.first, new Pump(pair.second));
         }
     }
     return pumps;

@@ -5,7 +5,7 @@
 #ifndef METACONTROL_MACHINE_H
 #define METACONTROL_MACHINE_H
 
-#include <vector>
+#include <unordered_map>
 #include "Switch.h"
 #include "Sensor.h"
 #include "Pump.h"
@@ -15,20 +15,24 @@ class State;
 
 class Machine {
 public:
-    Machine(State* state, std::vector<Switch*> switches, std::vector<Sensor*> sensor, std::vector<Pump*> pumps)
+    Machine(State* state, std::unordered_map<std::string, Switch*> switches, std::unordered_map<std::string, Sensor*> sensor, std::unordered_map<std::string, Pump*> pumps)
             : state(state), switches(switches), sensors(sensors), pumps(pumps) {};
     Machine(const Machine&);
     Machine& operator=(Machine);
     virtual ~Machine();
+
+    Switch* getSwitch(std::string);
+    Sensor* getSensor(std::string);
+    Pump* getPump(std::string);
 
     virtual void update();
 
 protected:
     friend class State;
     State* state;
-    std::vector<Switch*> switches;
-    std::vector<Sensor*> sensors;
-    std::vector<Pump*> pumps;
+    std::unordered_map<std::string, Switch*> switches;
+    std::unordered_map<std::string, Sensor*> sensors;
+    std::unordered_map<std::string, Pump*> pumps;
 
 private:
     void swap(Machine& first, Machine& second);

@@ -19,7 +19,7 @@ public:
     virtual void update()=0;
 
 protected:
-    void changeState(State* newstate);
+    virtual void changeState(State* newstate);
     Machine* machine;
 };
 

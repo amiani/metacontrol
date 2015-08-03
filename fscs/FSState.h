@@ -12,27 +12,24 @@ class FSCS;
 
 class FSState : public State {
 public:
-    FSState(FSCS* fscs) : State(fscs) {}
-    virtual void turnOn()=0;
-    virtual void mixLow()=0;
-    virtual void mixHigh()=0;
-    virtual void sampleTimer()=0;
-    virtual void referenceTimer()=0;
-    virtual void turnOff()=0;
+    FSState(FSCS* fscs) : State(fscs), machine(fscs) {}
 
 protected:
     void changeState(FSState* newstate);
+    bool isRunSwitchOn();
+    bool isMixHigh();
     bool isSampletime();
     bool isReferencetime();
     int timeinstate = 0;
     float getEC();
+    FSCS* machine;
 };
 
 class OffState : public FSState {
 public:
+    OffState(FSCS* fscs) : FSState(fscs) {}
     static OffState* enter() { return &instance; }
-    void update() {}
-    void turnOn();
+    void update();
 
 private:
     static OffState instance;
@@ -40,6 +37,7 @@ private:
 
 class FastFillState : public FSState {
 public:
+    FastFillState(FSCS* fscs) : FSState(fscs) {}
     static FastFillState* enter();
     void update();
 
@@ -50,6 +48,7 @@ private:
 
 class StandbyState : public FSState {
 public:
+    StandbyState(FSCS* fscs) : FSState(fscs) {}
     static StandbyState* enter() { return &instance; }
     void update() {}
     void sampleTimer();
@@ -62,6 +61,7 @@ protected:
 
 class BatchState : public FSState {
 public:
+    BatchState(FSCS* fscs) : FSState(fscs) {}
     static BatchState* enter();
     void update();
 
@@ -71,6 +71,7 @@ private:
 
 class SampleState : public FSState {
 public:
+    SampleState(FSCS* fscs) : FSState(fscs) {}
     static SampleState* enter();
     void update();
 
@@ -80,6 +81,7 @@ private:
 
 class RefreshState : public FSState {
 public:
+    RefreshState(FSCS* fscs) : FSState(fscs) {}
     static RefreshState* enter();
     void update();
 
@@ -89,6 +91,7 @@ private:
 
 class ReferenceState : public FSState {
 public:
+    ReferenceState(FSCS* fscs) : FSState(fscs) {}
     static ReferenceState* enter();
     void update();
 

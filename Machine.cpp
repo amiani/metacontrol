@@ -9,12 +9,12 @@ Machine::Machine(const Machine& that)
           switches(that.switches.size()),
           sensors(that.sensors.size()),
           pumps(that.pumps.size()) {
-    for (int i = 0; i != switches.size(); i++)
-        this->switches[i] = that.switches[i];
-    for (int i = 0; i != sensors.size(); i++)
-        this->sensors[i] = that.sensors[i];
-    for (int i = 0; i != pumps.size(); i++)
-        this->pumps[i] = that.pumps[i];
+    for (auto pair : that.switches)
+        switches[pair.first] = pair.second;
+    for (auto pair : that.sensors)
+        sensors[pair.first] = pair.second;
+    for (auto pair : that.pumps)
+        pumps[pair.first] = pair.second;
 }
 
 Machine& Machine::operator=(Machine that) {
@@ -24,14 +24,14 @@ Machine& Machine::operator=(Machine that) {
 
 Machine::~Machine() {
     delete state;
-    for (Switch* s : switches)
-        delete s;
+    for (auto pair : switches)
+        delete pair.second;
     switches.clear();
-    for (Sensor* s : sensors)
-        delete s;
+    for (auto pair : sensors)
+        delete pair.second;
     sensors.clear();
-    for (Pump* p : pumps)
-        delete p;
+    for (auto pair : pumps)
+        delete pair.second;
     pumps.clear();
 }
 
@@ -45,4 +45,16 @@ void Machine::swap(Machine& first, Machine& second) {
 
 void Machine::update() {
     state->update();
+}
+
+Switch* Machine::getSwitch(std::string name) {
+    return switches[name];
+}
+
+Sensor* Machine::getSensor(std::string name) {
+    return sensors[name];
+}
+
+Pump* Machine::getPump(std::string name) {
+    return pumps[name];
 }

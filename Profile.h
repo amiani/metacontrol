@@ -17,9 +17,9 @@ class Profile {
 public:
     //Profile(char filename[], std::function<void (Routine*)> addRoutine);
     Profile(char filename[]);
-    std::vector<Switch*> makeSwitches();
-    std::vector<Sensor*> makeSensors();
-    std::vector<Pump*> makePumps(std::unordered_map<std::string, Flowmeter*> sensors);
+    std::unordered_map<std::string, Switch*> makeSwitches();
+    std::unordered_map<std::string, Sensor*> makeSensors();
+    std::unordered_map<std::string, Pump*> makePumps(std::unordered_map<std::string, Flowmeter*> sensors);
     //std::unordered_map<std::string, Routine*> getRoutines();
 
 private:

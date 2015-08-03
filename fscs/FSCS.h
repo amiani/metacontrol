@@ -10,18 +10,15 @@
 #include "../Pump.h"
 #include "../Switch.h"
 #include <string>
-#include <vector>
+#include <unordered_map>
 
 class FSState;
 
 class FSCS : public Machine {
 public:
-    FSCS(std::vector<Switch*> switches, std::vector<Sensor*> sensor, std::vector<Pump*> pumps)
-            : Machine(new OffState, switches, sensors, pumps) {
-        dynamic_cast<FSState*>(state);
-        for (Switch* s : switches)
-            if (s->getName() == "LS5")
-                LS5 = s;
+    FSCS(std::unordered_map<std::string, Switch*> switches, std::unordered_map<std::string, Sensor*> sensor, std::unordered_map<std::string, Pump*> pumps)
+            : Machine(new OffState(this), switches, sensors, pumps) {
+        LS5 = switches["LS5"];
     };
 
     void turnOn();
@@ -31,13 +28,13 @@ public:
     void referenceTimer();
     void turnOff();
 
-    bool isMixHigh();
     void checkTime(tm* gmt);
 
 private:
+    friend class FSState;
+    Switch* LS5;
     bool sampletime = false;
     bool referencetime = false;
-    Switch* LS5;
 };
 
 
