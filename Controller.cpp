@@ -7,13 +7,13 @@
 
 Controller::Controller() {
     //std::function<void(Routine*)> ar = [this](Routine* r){ addRoutine(r); };
-    profile = new Profile("testprofile.txt");
-    machine = std::make_shared(FSCS(profile->makeResources()));
+    profile = std::unique_ptr<Profile>(new Profile("testprofile.txt"));
+    machine = std::make_shared<FSCS>(FSCS(profile->makeResources()));
     start();
 }
 
 Controller::Controller(const Controller& that) {
-    profile = that.profile;
+    profile = std::unique_ptr<Profile>(new Profile(that.profile->getFilename()));
     machine = that.machine;
 }
 

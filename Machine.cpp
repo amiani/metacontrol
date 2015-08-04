@@ -4,7 +4,7 @@
 
 #include "Machine.h"
 
-Machine::Machine(const Machine& that)
+/**Machine::Machine(const Machine& that) TODO:FIX THIS
         : state(that.state),    //this doesn't work yet
           switches(that.switches.size()),
           sensors(that.sensors.size()),
@@ -15,12 +15,7 @@ Machine::Machine(const Machine& that)
         sensors[pair.first] = pair.second;
     for (auto pair : that.pumps)
         pumps[pair.first] = pair.second;
-}
-
-Machine& Machine::operator=(Machine that) {
-    swap(*this, that);
-    return *this;
-}
+}**/
 
 void Machine::swap(Machine& first, Machine& second) {
     using std::swap;

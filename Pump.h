@@ -13,12 +13,10 @@
 
 class Pump {
 public:
-    Pump(std::unordered_map<std::string, std::string> attrs, Flowmeter* fm)
+    Pump(std::unordered_map<std::string, std::string> attrs, std::shared_ptr<Flowmeter> fm)
             : attributes(attrs), flowmeter(fm) {}
     Pump(std::unordered_map<std::string, std::string> attrs) : Pump(attrs, nullptr) {}
-    ~Pump() {
-        delete flowmeter;
-    }
+
     virtual void update();
     virtual void pumpml(int ml);
     void stop();
@@ -33,7 +31,7 @@ protected:
 private:
     bool locked = false;
     float checkFlowmeter();
-    Flowmeter * flowmeter;
+    std::shared_ptr<Flowmeter> flowmeter;
 };
 
 

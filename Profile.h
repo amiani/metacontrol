@@ -14,12 +14,12 @@
 
 class Profile {
 public:
-    //Profile(char filename[], std::function<void (Routine*)> addRoutine);
     Profile(char filename[]);
-    Resources makeResources();
-    //std::unordered_map<std::string, Routine*> getRoutines();
+    char* getFilename();
+    IOMaps makeResources();
 
 private:
+    char* filename;
     void readProfile(char filename[]);
     std::unordered_map<std::string, std::shared_ptr<Switch>> makeSwitches();
     //std::unordered_map<std::string, std::shared_ptr<Sensor>> makeSensors();

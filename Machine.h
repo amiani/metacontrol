@@ -13,12 +13,17 @@
 
 class State;
 
+struct IOMaps {
+    std::unordered_map<std::string, std::shared_ptr<Switch>> switches;
+    std::unordered_map<std::string, std::shared_ptr<Sensor>> sensors;
+    std::unordered_map<std::string, std::shared_ptr<Pump>> pumps;
+};
+
 class Machine {
 public:
-    Machine(State* state, Resources r)
-            : state(state), switches(r.switches), sensors(r.sensors), pumps(r.pumps) {};
-    Machine(const Machine&);
-    Machine& operator=(Machine);
+    Machine(std::unique_ptr<State> state, IOMaps r)
+            : state(std::move(state)), switches(r.switches), sensors(r.sensors), pumps(r.pumps) {};
+    //Machine(const Machine&);
 
     std::shared_ptr<Switch> getSwitch(std::string);
     std::shared_ptr<Sensor> getSensor(std::string);
@@ -35,12 +40,6 @@ protected:
 
 private:
     void swap(Machine& first, Machine& second);
-};
-
-struct Resources {
-    std::unordered_map<std::string, std::shared_ptr<Switch>> switches;
-    std::unordered_map<std::string, std::shared_ptr<Sensor>> sensors;
-    std::unordered_map<std::string, std::shared_ptr<Pump>> pumps;
 };
 
 #endif //METACONTROL_MACHINE_H

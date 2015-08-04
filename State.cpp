@@ -5,5 +5,5 @@
 #include "State.h"
 
 void State::changeState(State* newstate) {
-    machine->state = newstate;
+    machine->state.reset(newstate);
 }

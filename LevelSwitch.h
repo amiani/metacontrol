@@ -11,7 +11,7 @@
 
 class LevelSwitch : public Switch {
 public:
-    LevelSwitch(std::unordered_map<std::string, std::string> attrs);
+    LevelSwitch(std::unordered_map<std::string, std::string> attrs) : Switch(attrs) {}
 private:
     int isup = 0;
 };

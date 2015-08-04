@@ -4,8 +4,12 @@
 
 #include "FSState.h"
 
+FSState::FSState(FSCS *fscs) : State(fscs), machine(fscs) {}
+
+void FSState::changeState(FSState *newstate) { }
+
 bool FSState::isRunSwitchOn() {
-    machine->getSwitch("RUNSWITCH")->isUp();
+    return machine->getSwitch("runswitch")->isUp();
 }
 
 bool FSState::isMixHigh() {

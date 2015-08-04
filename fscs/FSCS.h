@@ -13,21 +13,22 @@
 #include <unordered_map>
 
 class FSState;
+class OffState;
 
 class FSCS : public Machine {
 public:
-    FSCS(Resources r) : Machine(new OffState(this), r) {
-        LS5 = switches["LS5"];
-    };
+    FSCS(IOMaps r);
 
-    void turnOn();
+    void update();
+
+    /**void turnOn();
     void mixLow();
     void mixHigh();
     void sampleTimer();
     void referenceTimer();
     void turnOff();
 
-    void checkTime(tm* gmt);
+    void checkTime(tm* gmt);**/
 
 private:
     friend class FSState;

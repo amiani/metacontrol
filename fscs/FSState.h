@@ -12,7 +12,7 @@ class FSCS;
 
 class FSState : public State {
 public:
-    FSState(FSCS* fscs) : State(fscs), machine(fscs) {}
+    FSState(FSCS* fscs);
 
 protected:
     void changeState(FSState* newstate);
@@ -28,11 +28,13 @@ protected:
 class OffState : public FSState {
 public:
     OffState(FSCS* fscs) : FSState(fscs) {}
-    static OffState* enter() { return &instance; }
+    static OffState* enter() {
+        static OffState instance;
+        return &instance;
+    }
     void update();
 
 private:
-    static OffState instance;
 };
 
 class FastFillState : public FSState {
@@ -43,7 +45,6 @@ public:
 
 private:
     static FastFillState instance;
-
 };
 
 class StandbyState : public FSState {
