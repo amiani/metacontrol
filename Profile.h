@@ -8,28 +8,25 @@
 #include <string>
 #include <unordered_map>
 #include "Pump.h"
-#include "Routine.h"
-#include "Profile.h"
 #include "Switch.h"
+#include "Machine.h"
 
 
 class Profile {
 public:
     //Profile(char filename[], std::function<void (Routine*)> addRoutine);
     Profile(char filename[]);
-    std::unordered_map<std::string, Switch*> makeSwitches();
-    std::unordered_map<std::string, Sensor*> makeSensors();
-    std::unordered_map<std::string, Pump*> makePumps(std::unordered_map<std::string, Flowmeter*> sensors);
+    Resources makeResources();
     //std::unordered_map<std::string, Routine*> getRoutines();
 
 private:
     void readProfile(char filename[]);
-    //std::function<void (Routine*)> addRoutine;
+    std::unordered_map<std::string, std::shared_ptr<Switch>> makeSwitches();
+    //std::unordered_map<std::string, std::shared_ptr<Sensor>> makeSensors();
+    std::unordered_map<std::string, std::shared_ptr<Pump>> makePumps(std::unordered_map<std::string, std::shared_ptr<Flowmeter>> sensors);
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> switchinfo;
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> pumpinfo;
-    //std::unordered_map<std::string, Pump*>* pumps;
     std::unordered_map<std::string, std::unordered_map<std::string, std::string>> sensorinfo;
-    //std::unordered_map<std::string, Sensor*>* sensors;
 };
 
 #endif //FSCSMOCK_PROFILE_H

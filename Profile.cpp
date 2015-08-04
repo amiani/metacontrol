@@ -47,42 +47,72 @@ void Profile::readProfile(char filename[]) {
     }
 }
 
-std::unordered_map<std::string, Switch*> Profile::makeSwitches() {
-    std::unordered_map<std::string, Switch*> switches;
+std::unordered_map<std::string, std::shared_ptr<Switch>> Profile::makeSwitches() {
+    std::unordered_map<std::string, std::shared_ptr<Switch>> switches;
     for (auto pair : switchinfo)
         switches.insert(pair.second);
     return switches;
 }
 
-std::unordered_map<std::string, Sensor*> Profile::makeSensors() {
-    std::unordered_map<std::string, Sensor*> sensors;
+/**std::unordered_map<std::string, std::shared_ptr<Sensor>> Profile::makeSensors() {
+    std::unordered_map<std::string, std::shared_ptr<Sensor>> sensors;
+    std::unordered_map<std::string, std::shared_ptr<Flowmeter>> flowmeters;
     for (auto pair : sensorinfo) {
         std::string subtype = pair.second["subtype"];
-        if (subtype == "flow")
-            sensors.insert(pair.first, new Flowmeter(pair.second));
+        if (subtype == "flow") {
+            auto flowpair = std::make_pair(pair.first, std::make_shared(Flowmeter(pair.second)));
+            sensors.insert(flowpair);
+            flowmeters.insert(flowpair);
+        }
         else if (subtype == "ph")
-            sensors.insert(pair.first, new PHSensor(pair.second));
+            sensors.insert(pair.first, std::make_shared(PHSensor(pair.second)));
         else if (subtype == "temp")
-            sensors.insert(pair.first, new TempSensor(pair.second));
+            sensors.insert(pair.first, std::make_shared(TempSensor(pair.second)));
         else if (subtype == "wettray")
-            sensors.insert(pair.first, new WetTraySensor(pair.second));
+            sensors.insert(pair.first, std::make_shared(WetTraySensor(pair.second)));
         else if (subtype == "ec")
-            sensors.insert(pair.first, new ECSensor(pair.second));
+            sensors.insert(pair.first, std::make_shared(ECSensor(pair.second)));
     }
     return sensors;
-}
+}**/
 
-std::unordered_map<std::string, Pump*> Profile::makePumps(std::unordered_map<std::string, Flowmeter*> flowmeters) {
-    std::unordered_map<std::string, Pump*> pumps;
+std::unordered_map<std::string, std::shared_ptr<Pump>> Profile::makePumps(std::unordered_map<std::string, std::shared_ptr<Flowmeter>> flowmeters) {
+    std::unordered_map<std::string, std::shared_ptr<Pump>> pumps;
     for (auto pair : pumpinfo) {
         try {
             Flowmeter *flowmeter = flowmeters.at("fm" + pair.first);
-            pumps.insert(pair.first, new Pump(pair.second, flowmeter));
+            pumps.insert(pair.first, std::make_shared(Pump(pair.second, flowmeter)));
         }
         catch (std::out_of_range oorex) {
             std::cout << pair.first << " has no associated flowmeter" << std::endl;
-            pumps.insert(pair.first, new Pump(pair.second));
+            pumps.insert(pair.first, std::make_shared(Pump(pair.second)));
         }
     }
     return pumps;
+}
+
+Resources Profile::makeResources() {
+    Resources r;
+    std::unordered_map<std::string, std::shared_ptr<Sensor>> sensors;
+    std::unordered_map<std::string, std::shared_ptr<Flowmeter>> flowmeters;
+    for (auto pair : sensorinfo) {
+        std::string subtype = pair.second["subtype"];
+        if (subtype == "flow") {
+            auto flowpair = std::make_pair(pair.first, std::make_shared(Flowmeter(pair.second)));
+            sensors.insert(flowpair);
+            flowmeters.insert(flowpair);
+        }
+        else if (subtype == "ph")
+            sensors.insert(pair.first, std::make_shared(PHSensor(pair.second)));
+        else if (subtype == "temp")
+            sensors.insert(pair.first, std::make_shared(TempSensor(pair.second)));
+        else if (subtype == "wettray")
+            sensors.insert(pair.first, std::make_shared(WetTraySensor(pair.second)));
+        else if (subtype == "ec")
+            sensors.insert(pair.first, std::make_shared(ECSensor(pair.second)));
+    }
+
+    r.switches = makeSwitches();
+    r.sensors = sensors;
+    r.pumps = makePumps(flowmeters);
 }

@@ -8,20 +8,13 @@
 Controller::Controller() {
     //std::function<void(Routine*)> ar = [this](Routine* r){ addRoutine(r); };
     profile = new Profile("testprofile.txt");
-    machine = new FSCS(profile->makeSwitches(), profile->makeSensors(), profile->makePumps(getFlowmeters()));
+    machine = std::make_shared(FSCS(profile->makeResources()));
     start();
 }
 
 Controller::Controller(const Controller& that) {
-    delete profile;
-    delete machine;
     profile = that.profile;
     machine = that.machine;
-}
-
-Controller::~Controller() {
-    delete profile;
-    delete machine;
 }
 
 void Controller::start() {
@@ -45,7 +38,7 @@ void Controller::start() {
     std::sort(routines.begin(), routines.end());
 }**/
 
-std::unordered_map<std::string, Flowmeter*> Controller::getFlowmeters() {
+/**std::unordered_map<std::string, Flowmeter*> Controller::getFlowmeters() {
     std::unordered_map<std::string, Flowmeter*> flowmeters;
     for (auto sensor : sensors) {
         Flowmeter* s = dynamic_cast<Flowmeter*>(sensor);
@@ -53,4 +46,4 @@ std::unordered_map<std::string, Flowmeter*> Controller::getFlowmeters() {
             flowmeters.insert(std::make_pair(s->getName(), s));
     }
     return flowmeters;
-}
+}**/

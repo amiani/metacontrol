@@ -13,14 +13,12 @@ class Machine;
 class State {
 public:
     State(Machine* machine) : machine(machine) {}
-    ~State();
-    //TODO: Implement copy and copy assignment constructors
 
     virtual void update()=0;
 
 protected:
     virtual void changeState(State* newstate);
-    Machine* machine;
+    std::shared_ptr<Machine> machine;
 };
 
 

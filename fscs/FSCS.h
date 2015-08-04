@@ -16,8 +16,7 @@ class FSState;
 
 class FSCS : public Machine {
 public:
-    FSCS(std::unordered_map<std::string, Switch*> switches, std::unordered_map<std::string, Sensor*> sensor, std::unordered_map<std::string, Pump*> pumps)
-            : Machine(new OffState(this), switches, sensors, pumps) {
+    FSCS(Resources r) : Machine(new OffState(this), r) {
         LS5 = switches["LS5"];
     };
 
@@ -32,7 +31,7 @@ public:
 
 private:
     friend class FSState;
-    Switch* LS5;
+    std::shared_ptr<Switch> LS5;
     bool sampletime = false;
     bool referencetime = false;
 };

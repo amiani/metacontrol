@@ -22,7 +22,7 @@ protected:
     bool isReferencetime();
     int timeinstate = 0;
     float getEC();
-    FSCS* machine;
+    std::shared_ptr<FSCS> machine;
 };
 
 class OffState : public FSState {

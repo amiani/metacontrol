@@ -22,19 +22,6 @@ Machine& Machine::operator=(Machine that) {
     return *this;
 }
 
-Machine::~Machine() {
-    delete state;
-    for (auto pair : switches)
-        delete pair.second;
-    switches.clear();
-    for (auto pair : sensors)
-        delete pair.second;
-    sensors.clear();
-    for (auto pair : pumps)
-        delete pair.second;
-    pumps.clear();
-}
-
 void Machine::swap(Machine& first, Machine& second) {
     using std::swap;
     swap(first.state, second.state);
@@ -47,14 +34,14 @@ void Machine::update() {
     state->update();
 }
 
-Switch* Machine::getSwitch(std::string name) {
+std::shared_ptr<Switch> Machine::getSwitch(std::string name) {
     return switches[name];
 }
 
-Sensor* Machine::getSensor(std::string name) {
+std::shared_ptr<Sensor> Machine::getSensor(std::string name) {
     return sensors[name];
 }
 
-Pump* Machine::getPump(std::string name) {
+std::shared_ptr<Pump> Machine::getPump(std::string name) {
     return pumps[name];
 }

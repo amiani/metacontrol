@@ -15,28 +15,32 @@ class State;
 
 class Machine {
 public:
-    Machine(State* state, std::unordered_map<std::string, Switch*> switches, std::unordered_map<std::string, Sensor*> sensor, std::unordered_map<std::string, Pump*> pumps)
-            : state(state), switches(switches), sensors(sensors), pumps(pumps) {};
+    Machine(State* state, Resources r)
+            : state(state), switches(r.switches), sensors(r.sensors), pumps(r.pumps) {};
     Machine(const Machine&);
     Machine& operator=(Machine);
-    virtual ~Machine();
 
-    Switch* getSwitch(std::string);
-    Sensor* getSensor(std::string);
-    Pump* getPump(std::string);
+    std::shared_ptr<Switch> getSwitch(std::string);
+    std::shared_ptr<Sensor> getSensor(std::string);
+    std::shared_ptr<Pump> getPump(std::string);
 
-    virtual void update();
+    virtual void update()=0;
 
 protected:
     friend class State;
-    State* state;
-    std::unordered_map<std::string, Switch*> switches;
-    std::unordered_map<std::string, Sensor*> sensors;
-    std::unordered_map<std::string, Pump*> pumps;
+    std::unique_ptr<State> state;
+    std::unordered_map<std::string, std::shared_ptr<Switch>> switches;
+    std::unordered_map<std::string, std::shared_ptr<Sensor>> sensors;
+    std::unordered_map<std::string, std::shared_ptr<Pump>> pumps;
 
 private:
     void swap(Machine& first, Machine& second);
 };
 
+struct Resources {
+    std::unordered_map<std::string, std::shared_ptr<Switch>> switches;
+    std::unordered_map<std::string, std::shared_ptr<Sensor>> sensors;
+    std::unordered_map<std::string, std::shared_ptr<Pump>> pumps;
+};
 
 #endif //METACONTROL_MACHINE_H

@@ -4,10 +4,6 @@
 
 #include "State.h"
 
-State::~State() {
-    delete machine;
-}
-
 void State::changeState(State* newstate) {
     machine->state = newstate;
 }

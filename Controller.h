@@ -14,20 +14,20 @@ class Controller {
 public:
     Controller();
     Controller(const Controller&);
-    ~Controller();
 
-    std::unordered_map<std::string, Flowmeter*> getFlowmeters();
+    //std::unordered_map<std::string, Flowmeter*> getFlowmeters();
 
 private:
     void start();
     void checkSwitches();
     void checkSensors();
     bool runswitch = false;
-    Profile* profile;
-    Machine* machine;
-    std::time_t clock = std::time(nullptr);
+    std::unique_ptr<Profile> profile;
+    std::shared_ptr<Machine> machine;
+    static std::time_t clock;
     //void addRoutine(Routine*);
     //std::vector<Routine*> routines;
 };
 
+std::time_t Controller::clock = std::time(nullptr);
 #endif //FSCSMOCK_CONTROLLER_H
