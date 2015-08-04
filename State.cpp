@@ -4,6 +4,6 @@
 
 #include "State.h"
 
-void State::changeState(State* newstate) {
-    machine->state.reset(newstate);
+State::State(std::weak_ptr<Machine> machine) : machine(machine) {
+    enter();
 }

@@ -24,12 +24,13 @@ public:
     Machine(std::unique_ptr<State> state, IOMaps r)
             : state(std::move(state)), switches(r.switches), sensors(r.sensors), pumps(r.pumps) {};
     //Machine(const Machine&);
+    virtual ~Machine()=0;
 
     std::shared_ptr<Switch> getSwitch(std::string);
     std::shared_ptr<Sensor> getSensor(std::string);
     std::shared_ptr<Pump> getPump(std::string);
 
-    virtual void update()=0;
+    virtual void update();
 
 protected:
     friend class State;

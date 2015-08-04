@@ -17,6 +17,8 @@
         pumps[pair.first] = pair.second;
 }**/
 
+inline Machine::~Machine() {}
+
 void Machine::swap(Machine& first, Machine& second) {
     using std::swap;
     swap(first.state, second.state);
@@ -25,7 +27,7 @@ void Machine::swap(Machine& first, Machine& second) {
     swap(first.pumps, second.pumps);
 }
 
-void Machine::update() {
+inline void Machine::update() {
     state->update();
 }
 

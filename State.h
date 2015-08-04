@@ -12,14 +12,18 @@ class Machine;
 
 class State {
 public:
-    State(Machine* machine) : machine(machine) {}
+    State(std::weak_ptr<Machine> machine);
 
+    virtual void enter()=0;
     virtual void update()=0;
 
 protected:
-    virtual void changeState(State* newstate);
+    template <class T> void changeState();
     std::shared_ptr<Machine> machine;
 };
 
+template <class T> void State::changeState() {
+    machine->state.reset(new T(machine));
+}
 
 #endif //METACONTROLSIM_STATE_H

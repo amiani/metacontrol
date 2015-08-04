@@ -4,9 +4,11 @@
 
 #include "FSState.h"
 
-FSState::FSState(FSCS *fscs) : State(fscs), machine(fscs) {}
+FSState::FSState(std::weak_ptr<FSCS> fscs) : State(fscs), machine(fscs) {}
 
-void FSState::changeState(FSState *newstate) { }
+/**void FSState::changeState(std::unique_ptr<FSState> newstate) {
+    changeState(newstate);
+}**/
 
 bool FSState::isRunSwitchOn() {
     return machine->getSwitch("runswitch")->isUp();
@@ -19,39 +21,37 @@ bool FSState::isMixHigh() {
 void OffState::update() {
     if (isRunSwitchOn()) {
         if (isMixHigh())
-            changeState(StandbyState::enter());
+            changeState<StandbyState>();
         else
-            changeState(FastFillState::enter());
+            changeState<FastFillState>();
     }
 }
 
-FastFillState* FastFillState::enter() {
+void FastFillState::enter() {
     //start pumps
-    return &instance;
 }
 
 void FastFillState::update() {
     if (isMixHigh()) {
         //stop pumps
-        changeState(StandbyState::enter());
+        changeState<StandbyState>();
     }
 }
 
 void StandbyState::sampleTimer() {
-    changeState(SampleState::enter());
+    changeState<SampleState>();
 }
 
 void StandbyState::referenceTimer() {
-    changeState(ReferenceState::enter());
+    changeState<ReferenceState>();
 }
 
 void StandbyState::turnOff() {
-    changeState(OffState::enter());
+    changeState<OffState>();
 }
 
-BatchState* BatchState::enter() {
+void BatchState::enter() {
     //start pump
-    return &instance;
 }
 
 void BatchState::update() {
@@ -59,37 +59,33 @@ void BatchState::update() {
     //control pumps
     //check if finished then
     /** if (fscs->isMixHigh)
-     *      changeState(SampleState::enter());
+     *      changeState<SampleState>();
      *  else
-     *      changeState(BatchState::enter()); **/
+     *      changeState<BatchState>();**/
 }
 
-SampleState* SampleState::enter() {
+void SampleState::enter() {
     //start pump
-    return &instance;
 }
 
 void SampleState::update() {
     /** if (finished)
      *      if (EC is ok)
-     *          changeState(StandbyState::enter());
+     *          changeState<StandbyState>();
      *      else
-     *          changeState(RefreshState::enter());**/
+     *          changeState<RefreshState>();**/
 }
 
-RefreshState* RefreshState::enter() {
+void RefreshState::enter() {
     //start pumps
-    return &instance;
 }
 
 void RefreshState::update() {
     /** if (finished)
-     *      changeState(StandbyState::enter());**/
+     *      changeState<StandbyState>();
 }
 
 ReferenceState* ReferenceState::enter() {
     //start pumps
-    return &instance;
+    return &instance;**/
 }
-
-
