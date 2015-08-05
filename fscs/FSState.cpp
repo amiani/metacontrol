@@ -4,18 +4,19 @@
 
 #include "FSState.h"
 
-FSState::FSState(std::weak_ptr<FSCS> fscs) : State(fscs), machine(fscs) {}
+FSState::FSState(std::shared_ptr<Machine> machine)
+        : State(machine), fscs(std::dynamic_pointer_cast<FSCS>(machine)) {}
 
 /**void FSState::changeState(std::unique_ptr<FSState> newstate) {
     changeState(newstate);
 }**/
 
-bool FSState::isRunSwitchOn() {
-    return machine->getSwitch("runswitch")->isUp();
+bool FSState::isRunSwitchOn() const {
+    return fscs->getSwitch("runswitch")->isUp();
 }
 
-bool FSState::isMixHigh() {
-    return machine->LS5->isUp();
+bool FSState::isMixHigh() const {
+    return fscs->LS5->isUp();
 }
 
 void OffState::update() {

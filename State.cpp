@@ -4,6 +4,4 @@
 
 #include "State.h"
 
-State::State(std::weak_ptr<Machine> machine) : machine(machine) {
-    enter();
-}
+State::State(std::shared_ptr<Machine> machine) : machine(machine) {}

@@ -5,14 +5,13 @@
 #ifndef METACONTROLSIM_STATE_H
 #define METACONTROLSIM_STATE_H
 
-
-#include "Machine.h"
+#include <memory>
 
 class Machine;
 
 class State {
 public:
-    State(std::weak_ptr<Machine> machine);
+    State(std::shared_ptr<Machine> machine);
 
     virtual void enter()=0;
     virtual void update()=0;
@@ -21,6 +20,8 @@ protected:
     template <class T> void changeState();
     std::shared_ptr<Machine> machine;
 };
+
+#include "Machine.h"
 
 template <class T> void State::changeState() {
     machine->state.reset(new T(machine));

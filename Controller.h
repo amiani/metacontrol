@@ -8,26 +8,21 @@
 #include "Profile.h"
 #include "Machine.h"
 #include <vector>
-#include <ctime>
+#include <time.h>
 
 class Controller {
 public:
     Controller();
     Controller(const Controller&);
 
-    //std::unordered_map<std::string, Flowmeter*> getFlowmeters();
-
 private:
     void start();
-    void checkSwitches();
-    void checkSensors();
     bool runswitch = false;
     std::unique_ptr<Profile> profile;
     std::shared_ptr<Machine> machine;
-    static std::time_t clock;
-    //void addRoutine(Routine*);
-    //std::vector<Routine*> routines;
+    static time_t myclock;
 };
 
-std::time_t Controller::clock = std::time(nullptr);
+//time_t Controller::myclock = time(nullptr);
+
 #endif //FSCSMOCK_CONTROLLER_H

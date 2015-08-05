@@ -18,7 +18,7 @@ class OffState;
 class FSCS : public Machine {
 public:
     FSCS(IOMaps r);
-
+    FSCS(FSCS&&);
     void update();
 
     /**void turnOn();

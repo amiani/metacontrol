@@ -3,8 +3,12 @@
 //
 
 #include "Machine.h"
+#include "State.h"
 
-/**Machine::Machine(const Machine& that) TODO:FIX THIS
+Machine::Machine(std::unique_ptr<State> state, IOMaps i)
+        : state(std::move(state)), switches(i.switches), sensors(i.sensors), pumps(i.pumps) {}
+
+/**Machine::Machine(const Machine& that)
         : state(that.state),    //this doesn't work yet
           switches(that.switches.size()),
           sensors(that.sensors.size()),
@@ -17,8 +21,6 @@
         pumps[pair.first] = pair.second;
 }**/
 
-inline Machine::~Machine() {}
-
 void Machine::swap(Machine& first, Machine& second) {
     using std::swap;
     swap(first.state, second.state);
@@ -27,8 +29,8 @@ void Machine::swap(Machine& first, Machine& second) {
     swap(first.pumps, second.pumps);
 }
 
-inline void Machine::update() {
-    state->update();
+std::shared_ptr<Machine> Machine::getThis(){
+    return shared_from_this();
 }
 
 std::shared_ptr<Switch> Machine::getSwitch(std::string name) {

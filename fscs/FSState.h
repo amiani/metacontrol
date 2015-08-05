@@ -12,23 +12,23 @@ class FSCS;
 
 class FSState : public State {
 public:
-    FSState(std::weak_ptr<FSCS> fscs);
+    FSState(std::shared_ptr<Machine> fscs);
 
 protected:
     //void changeState(std::unique_ptr<FSState> newstate);
-    bool isRunSwitchOn();
-    bool isMixHigh();
-    bool isSampletime();
-    bool isReferencetime();
+    bool isRunSwitchOn() const;
+    bool isMixHigh() const;
+    //bool isSampletime() const;
+    //bool isReferencetime() const;
     int timeinstate = 0;
-    float getEC();
-    std::shared_ptr<FSCS> machine;
+    //float getEC() const;
+    std::shared_ptr<FSCS> fscs;
 };
 
 class OffState : public FSState {
 public:
-    OffState(std::weak_ptr<FSCS> fscs) : FSState(fscs) {}
-    void enter();
+    OffState(std::shared_ptr<Machine> fscs) : FSState(fscs) { enter(); }
+    void enter() {}
     void update();
 
 private:
@@ -36,16 +36,16 @@ private:
 
 class FastFillState : public FSState {
 public:
-    FastFillState(std::weak_ptr<FSCS> fscs) : FSState(fscs) {}
+    FastFillState(std::shared_ptr<Machine> fscs) : FSState(fscs) { enter(); }
     void enter();
     void update();
 };
 
 class StandbyState : public FSState {
 public:
-    StandbyState(std::weak_ptr<FSCS> fscs) : FSState(fscs) {}
-    void enter();
-    void update() {}
+    StandbyState(std::shared_ptr<Machine> fscs) : FSState(fscs) { enter(); }
+    void enter() { }
+    void update() { }
     void sampleTimer();
     void referenceTimer();
     void turnOff();
@@ -53,30 +53,30 @@ public:
 
 class BatchState : public FSState {
 public:
-    BatchState(std::weak_ptr<FSCS> fscs) : FSState(fscs) {}
+    BatchState(std::shared_ptr<Machine> fscs) : FSState(fscs) { enter(); }
     void enter();
     void update();
 };
 
 class SampleState : public FSState {
 public:
-    SampleState(std::weak_ptr<FSCS> fscs) : FSState(fscs) {}
+    SampleState(std::shared_ptr<Machine> fscs) : FSState(fscs) { enter(); }
     void enter();
     void update();
 };
 
 class RefreshState : public FSState {
 public:
-    RefreshState(std::weak_ptr<FSCS> fscs) : FSState(fscs) {}
+    RefreshState(std::shared_ptr<Machine> fscs) : FSState(fscs) { enter(); }
     void enter();
     void update();
 };
 
 class ReferenceState : public FSState {
 public:
-    ReferenceState(std::weak_ptr<FSCS> fscs) : FSState(fscs) {}
-    void enter();
-    void update();
+    ReferenceState(std::shared_ptr<Machine> fscs) : FSState(fscs) { enter(); }
+    void enter() { }
+    void update() { }
 };
 
 #endif //METACONTROLSIM_FSSTATE_H

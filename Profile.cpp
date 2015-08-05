@@ -15,7 +15,7 @@ Profile::Profile(char filename[]) : filename(filename) {
     readProfile(filename);
 }
 
-char* Profile::getFilename() { return filename; }
+char* Profile::getFilename() const { return filename; }
 
 void Profile::readProfile(char filename[]) {
     std::ifstream file;

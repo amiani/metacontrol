@@ -5,7 +5,6 @@
 #ifndef FSCSMOCK_PUMP_H
 #define FSCSMOCK_PUMP_H
 
-
 #include <string>
 #include <memory>
 #include "Flowmeter.h"

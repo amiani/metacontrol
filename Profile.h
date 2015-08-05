@@ -15,7 +15,7 @@
 class Profile {
 public:
     Profile(char filename[]);
-    char* getFilename();
+    char* getFilename() const;
     IOMaps makeResources();
 
 private:
